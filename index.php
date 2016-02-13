@@ -1,4 +1,3 @@
 <?php
-
-header("Location: web/");
+    header("Location: view/user/");
 ?>
