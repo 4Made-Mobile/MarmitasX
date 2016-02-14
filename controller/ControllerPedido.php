@@ -63,14 +63,11 @@ class ControllerPedido {
             ob_start();
             $html = ob_get_clean();
             $html = utf8_encode($html);
-            $html .= "GALEGO DA MARMITA<br><br>";
-            $html .= "DATA: " . date('d-m-Y') . "<br><br>";
-            $html .= "Total de pedidos: " . count($lista) . "<br>";
             $html .= "<br><br><br><br><br><br><br><br><br><br><br><br><br>";
             foreach ($lista as $linha) {
                 $obj = $this->buscarPedidoID($linha->id);
-                $html .= "Id: " . $obj[0]->id . "<br>";
-                $html .= "Cliente: " . $obj[0]->cliente . "<br>";
+                $html .= "<b><h3>C</h3>liente: " . $obj[0]->cliente . "</b><br>";
+                $html .= "Telefone: " . $obj[0]->telefone . "<br>";
                 $html .= "Localização: " . $obj[0]->localizacao . "<br>";
                 $html .= "Observação: " . $obj[0]->obs . "<br>";
                 $html .= "<b>INGREDIENTES</b><br>";

@@ -3,9 +3,6 @@ include_once "../../../fachada/Fachada.php";
 include_once '../../../assets/php/mpdf/mpdf.php';
 $fachada = new Fachada();
 $fachada->verificarLogin();
-if (!empty($_POST['pdf'])) {
-    $fachada->pdfListarBairro();
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,7 +13,7 @@ if (!empty($_POST['pdf'])) {
         <meta name="author" content="Dashboard">
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-        <title>SPS - Secretária de Participação Social</title>
+        <title> Marmita </title>
 
         <!-- Bootstrap core CSS -->
         <link href="../../../assets/css/bootstrap.css" rel="stylesheet">
@@ -87,6 +84,7 @@ if (!empty($_POST['pdf'])) {
                                                         <td><?php echo $linha->id; ?></td>
                                                         <td><?php echo $linha->descricao; ?></td>
                                                         <td><a href="detalheTipo.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
+                                                        <td><a href="removeTipo.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
                                                     </tr>
                                                     <?php
                                                 }

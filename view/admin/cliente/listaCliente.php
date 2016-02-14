@@ -89,6 +89,7 @@ if (!empty($_POST['pdf'])) {
                                                         <td><?php echo $linha->nome; ?></td>
                                                         <td><?php echo $linha->telefone; ?></td>
                                                         <td><a href="detalheCliente.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
+                                                        <td><a href="removerCliente.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
                                                     </tr>
                                                     <?php
                                                 }

@@ -74,8 +74,12 @@ if (!empty($_GET)) {
                     <div class="row mt">
                         <div class="col-lg-12">
                             <div class="content-panel">
+
+                                <!-- Filtrar -->
                                 <form method="GET" action="">
                                     <h4><i class="fa fa-user"></i> Lista dos Tipos de Pedidos </h4>
+
+                                    <!-- Selecionar tipo de carne -->
                                     <select name="ingrediente">
                                         <option selected="<?php echo $_GET['ingrediente'] == "todas"; ?>" value="todas">Todas</option>
                                         <?php
@@ -89,11 +93,18 @@ if (!empty($_GET)) {
                                                 }
                                             }
                                             ?>
-                                        <option selected="<?php echo $_GET['ingrediente'] == "nenhuma"; ?>" value="nenhuma">Todas</option>
+                                        <option selected="<?php echo $_GET['ingrediente'] == "nenhuma"; ?>" value="nenhuma">Nenhuma </option>
                                     </select>
+
+                                    <!-- botão com o filtrar -->
                                     <button type="submit">filtrar</button>
                                 </form>
-                                <?php if (!empty($_GET['ingrediente'])) { ?>
+
+
+                                <?php
+                                // Emitindo E-Mail.
+                                if (!empty($_GET['ingrediente'])) {
+                                    ?>
                                     <a target="_blank" href="imprimirPdf.php?ingrediente=<?php echo $_GET['ingrediente']; ?>"<button class="btn btn-theme"> Imprimir </button></a>
                                 <?php } else { ?>
                                     <a target="_blank" href="imprimirPdf.php" <button class="btn btn-theme"> Imprimir </button></a>
@@ -107,6 +118,7 @@ if (!empty($_GET)) {
                                                 <th> carne </th>
                                                 <th> Localização </th>
                                                 <th> Observação </th>
+                                                <th> Impressão </th>
                                                 <th class="numeric"> Detalhes </th>
                                                 <th class="danger"> Imprimir </th>
                                             </tr>
@@ -121,7 +133,9 @@ if (!empty($_GET)) {
                                                     <td><?php echo $linha->carne; ?></td>
                                                     <td><?php echo $linha->localizacao; ?></td>
                                                     <td><?php echo $linha->obs; ?></td>
+                                                    <td><?php echo ($linha->status == 2 ? "sim" : "não") ?></td>
                                                     <td><a href="detalhePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
+                                                    <td><a href="removePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
                                                     <td><a target="_blank" href="imprimirPdf.php?pedido=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Imprimir </button></a></td>
                                                 </tr>
                                                 <?php

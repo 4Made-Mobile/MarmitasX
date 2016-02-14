@@ -63,9 +63,10 @@ $pedido = $fachada->buscarPedidoId($_GET['id']);
                     <div class="row mt">
                         <div class="col-lg-12">
                             <div class="content-panel">
-                                <h3>Cliente: <?php echo $pedido[0]->cliente; ?></h3>
-                                <h3>Localização: <?php echo $pedido[0]->localizacao; ?></h3>
-                                <h3>Observação: <?php echo $pedido[0]->obs; ?></h3>
+                                <h2>Cliente: <?php echo $pedido[0]->cliente; ?></h2>
+                                <h2>Telefone: <?php echo $pedido[0]->telefone; ?></h2>
+                                <h2>Localização: <?php echo $pedido[0]->localizacao; ?></h2>
+                                <h2>Observação: <?php echo $pedido[0]->obs; ?></h2>
                                 <?php
                                 foreach ($pedido AS $item) {
                                     echo "<h3>" . $item->tipo . ": " . $item->ingrediente . "</h3>";

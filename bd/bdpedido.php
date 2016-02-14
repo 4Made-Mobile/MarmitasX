@@ -20,9 +20,9 @@ class BdPedido {
             $stmt = $this->pdo->prepare('INSERT INTO pedido Values(
                                                       :id,
                                                       :cliente_id,
+                                                      :obs,
                                                       :localizacao,
                                                       :data_hora,
-                                                      :obs,
                                                       :status
                                   )');
             $stmt->execute($dados);
