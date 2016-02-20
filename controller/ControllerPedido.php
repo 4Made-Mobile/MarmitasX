@@ -8,7 +8,7 @@ class ControllerPedido {
         //vazio
     }
 
-    public function buscarPedidoID($id) {
+    public function buscarPedidoID($id){
         try {
             $tipo = new BDPedido();
             $busca = $tipo->buscarPedidoID($id);
@@ -18,11 +18,22 @@ class ControllerPedido {
         }
     }
 
-    public function listaIngredientes($id) {
-        try {
-            $ingrediente = new BDPedido();
-            return $ingrediente->listaPedidoIngredienteId($id);
-        } catch (Exception $ex) {
+    public function listarPedido($carne = NULL, $localizacao = NULL){
+        try{
+            $obj = new BDPedido();
+
+            // Aquela velha verificação estilosa
+            if($carne == NULL && $localizacao == NULL){
+                $lista = $obj->findAll();
+            }else if($carne == NULL && $localizacao != NULL){
+                $lista =  $obj->FindByCarne($carne);
+            }else if($carne != NULL && $localizacao == NULL){
+                $lista =  $obj->findByLocalizacao($localizacao);
+            }else{
+                $lista = $obj->fiinByLocalizacaoCarne($carne, $localizacao);
+            }
+            return $lista;
+        }catch (Exception $ex){
             echo "Erro: $ex";
         }
     }

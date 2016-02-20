@@ -11,6 +11,12 @@ function cardapio() {
     return $var;
 }
 
+function preco() {
+    $preco = new BDPreco();
+    $var = json_encode($preco->lista());
+    return $var;
+}
+
 function cliente($array) {
     $cliente = new BdCliente();
 
@@ -69,7 +75,7 @@ function pedido($array) {
 }
 
 //variaveis importantes
-$possible_url = array("cardapio", "cliente", "login", "pedido");
+$possible_url = array("cardapio", "cliente", "login", "pedido", "preco");
 $value = "";
 
 //se o nome method existir e o valor dele estiver dentro do array $possible_url entra no IF
@@ -92,6 +98,10 @@ if (isset($_GET['method']) && in_array($_GET['method'], $possible_url)) {
 
         case 'pedido':
             $value = pedido($_GET['value']);
+            break;
+            
+        case 'preco':
+            $value = preco();
             break;
     }
 } else {

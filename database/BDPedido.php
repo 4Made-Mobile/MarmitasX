@@ -12,87 +12,113 @@ include_once "../../../database/ConexaoBD.php";
  *
  * @author bergonalta
  */
+
+// Classe responsável pelo banco de dados
 class BDPedido extends ConexaoBD {
 
     public function __construct() {
         //vazio
     }
 
-    public function listarPedido() {
-        $pdo = $this->abrirBD();
-        if ($pdo == NULL) {
-            return false;
-        }
-        try {
-            $query = $pdo->query("SELECT t1.id AS id, t5.nome AS cliente, t3.descricao AS carne,
-                                  t1.localizacao AS localizacao, t1.obs AS obs
-                                  FROM pedido t1
-                                  INNER JOIN pedido_ingrediente t2 ON ( t1.id = t2.pedido_id )
-                                  INNER JOIN ingrediente t3 ON ( t2.ingrediente = t3.id )
-                                  INNER JOIN tipo t4 ON ( t4.id = t3.tipo_id )
-                                  INNER JOIN cliente t5 ON ( t1.cliente_id = t5.id )
-                                  WHERE data_hora =  '" . date("Y-m-d") . "'
-                                  AND t4.id =3");
-            return $query;
-        } catch (Exception $ex) {
-            
-        }
+    // Encontrar todos os pedidos válidos
+    public function findAll(){
+
+      // Busca a conexão com o banco de dados
+      $pdo = $this->abrirBD();
+
+      // Verifica se a conexão foi realizada com sucesso
+      if($pdo == null){
+        exit;
+      }
+
+      // se a query for realizada com sucesso retorna
+      // a lista do banco de dados, caso o contrário
+      // retorna null  
+      try{
+        // Query que realiza a busca
+        $query = $pdo->query("
+          select t1.id from pedido t1
+          inner join pedido_ingrediente t2 ON (t1.id = t2.pedido_id)
+          inner join ingrediente t3 ON (t3.id = t2.ingrediente)
+          inner join tipo t4 ON (t4.id = t3.tipo_id)
+          inner join localizacao t5 ON (t5.id = t1.localizacao_id)
+          ");
+        return $query->fetchAll(PDO::FETCH_OBJ);
+      }catch(PDOExcepetion $ex){
+        echo "Erro: $ex";
+      }
     }
 
-    public function buscarPedidoID($id) {
-        $pdo = $this->abrirBD();
-        if ($pdo == NULL) {
-            return false;
-        }
-        try {
-            $query = $pdo->query("SELECT t1.id AS id, t5.nome AS cliente, t4.descricao AS tipo,
-                                  t1.localizacao AS localizacao, t1.obs AS obs, t3.descricao AS ingrediente
-                                  FROM pedido t1
-                                  INNER JOIN pedido_ingrediente t2 ON ( t1.id = t2.pedido_id )
-                                  INNER JOIN ingrediente t3 ON ( t2.ingrediente = t3.id )
-                                  INNER JOIN tipo t4 ON ( t4.id = t3.tipo_id )
-                                  INNER JOIN cliente t5 ON ( t1.cliente_id = t5.id )
-                                  WHERE data_hora =  '" . date("Y-m-d") . "'
-                                  AND t1.id = $id")->fetchAll(PDO::FETCH_OBJ);
-            return $query;
-        } catch (PDOException $ex) {
-            echo "Erro: $ex";
-        }
+    public function findByCarne($carne = NULL){
+
+      // Busca a conexão com o banco de dados
+      $pdo = $this->abrirBD();
+
+      // Verifica se a conexão foi realizada com sucesso
+      if($pdo == null || $carne == NULL){
+        exit;
+      }
+
+      // se a query for realizada com sucesso retorna
+      // a lista do banco de dados, caso o contrário
+      // retorna null  
+      try{
+        // Query que realiza a busca
+        $query = $pdo->query("
+
+          ");
+
+        return $query->fetchAll(PDO::FETCH_OBJ);
+      }catch(PDOExcepetion $ex){
+        echo "Erro: $ex";
+      }
     }
 
-    public function listaPedidoIngredienteId($id) {
-        try {
-            $this->pdo = $this->abrirBD();
-            $lista = $this->pdo->query("select t2.descricao AS ingrediente, t3.descricao AS tipo
-                                        from pedido_ingrediente t1
-                                        inner join ingrediente t2 ON (t1.ingrediente_id = t2.id)
-                                        inner join tipo t3 ON (t2.tipo_id = t3.id)
-                                        where t1.pedido_id = $id")->fetchAll(PDO::FETCH_OBJ);
-            return $lista;
-        } catch (Exception $ex) {
-            
-        }
+    public function findByLocalizacao($localizacao = NULL){
+
+      // Busca a conexão com o banco de dados
+      $pdo = $this->abrirBD();
+
+      // Verifica se a conexão foi realizada com sucesso
+      if($pdo == null || $localizacao == null){
+        exit;
+      }
+
+      try{
+        // Query que realiza a busca
+        $query = $pdo->query("
+
+          ");
+
+        return $query->fetchAll(PDO::FETCH_OBJ);
+      }catch(PDOExcepetion $ex){
+        echo "Erro: $ex";
+      }
     }
 
-    public function listarPedidoCarne($ingrediente) {
-        $pdo = $this->abrirBD();
-        if ($pdo == NULL) {
-            return false;
-        }
-        try {
-            $query = $pdo->query("SELECT t1.id AS id, t5.nome AS cliente, t3.descricao AS carne,
-                                  t1.localizacao AS localizacao, t1.obs AS obs
-                                  FROM pedido t1
-                                  INNER JOIN pedido_ingrediente t2 ON ( t1.id = t2.pedido_id )
-                                  INNER JOIN ingrediente t3 ON ( t2.ingrediente = t3.id )
-                                  INNER JOIN tipo t4 ON ( t4.id = t3.tipo_id )
-                                  INNER JOIN cliente t5 ON ( t1.cliente_id = t5.id )
-                                  WHERE data_hora =  '" . date("Y-m-d") . "'
-                                  AND t3.id = $ingrediente")->fetchAll(PDO::FETCH_OBJ);
-            return $query;
-        } catch (PDOException $ex) {
-            echo "Erro: $ex";
-        }
+    public function findByLocalizacaoCarne($carne = NULL, $localizacao = NULL){
+
+      // Busca a conexão com o banco de dados
+      $pdo = $this->abrirBD();
+
+      // Verifica se a conexão foi realizada com sucesso
+      if($pdo == null || $carne == NULL || $localizacao == NULL){
+        exit;
+      }
+
+      // se a query for realizada com sucesso retorna
+      // a lista do banco de dados, caso o contrário
+      // retorna null  
+      try{
+        // Query que realiza a busca
+        $query = $pdo->query("
+
+          ");
+
+        return $query->fetchAll(PDO::FETCH_OBJ);
+      }catch(PDOExcepetion $ex){
+        echo "Erro: $ex";
+      }
     }
 
 }

@@ -5,16 +5,7 @@ include_once '../../../assets/php/mpdf/mpdf.php';
 $fachada = new Fachada();
 $fachada->verificarLogin();
 $ingrediente = $fachada->listarIngrediente()->fetchAll(PDO::FETCH_OBJ);
-$lista = $fachada->listarPedido()->fetchAll(PDO::FETCH_OBJ);
-if (!empty($_GET)) {
-    if ($_GET['ingrediente'] == 'todas') {
-        $lista = $fachada->listarPedido()->fetchAll(PDO::FETCH_OBJ);
-    } else if ($_GET['ingrediente'] == 'nenhuma') {
-        $lista = null;
-    } else {
-        $lista = $fachada->listarPedidoCarne($_GET['ingrediente']);
-    }
-}
+$lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

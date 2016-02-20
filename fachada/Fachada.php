@@ -6,6 +6,9 @@ include_once "../../../controller/ControllerTipo.php";
 include_once "../../../controller/ControllerIngrediente.php";
 include_once "../../../controller/ControllerCliente.php";
 include_once "../../../controller/ControllerPedido.php";
+include_once "../../../controller/ControllerLocalizacao.php";
+include_once "../../../controller/ControllerPreco.php";
+
 
 class Fachada {
 
@@ -105,15 +108,10 @@ class Fachada {
         return $res;
     }
 
-    public function listarPedido() {
+    // deixar apenas um metodo para retornar qualquer tipo de lista
+    public function listarPedido($carne = NULL, $localizacao = NULL) {
         $pedido = new ControllerPedido();
-        $res = $pedido->listarPedido();
-        return $res;
-    }
-
-    public function listarPedidoCarne($ingrediente) {
-        $pedido = new ControllerPedido();
-        $res = $pedido->listarPedidoCarne($ingrediente);
+        $res = $pedido->listarPedido($carne, $localizacao);
         return $res;
     }
 
@@ -122,6 +120,56 @@ class Fachada {
         $res = $pedido->buscarPedidoId($id);
         return $res;
     }
+
+    // CRUD da localização
+    public function cadastrarLocalizacao($array){
+        $localizacao = new ControllerLocalizacao();
+        $res = $localizacao->cadastrar($array);
+        return $res;
+    }
+
+    public function alterarLocalizacao($array){
+        $localizacao = new ControllerLocalizacao();
+        $res = $localizacao->alterarLocalizacao($array);
+        return $res;
+    }
+
+    public function listarLocalizacao(){
+        $localizacao = new ControllerLocalizacao();
+        $lista = $localizacao->listar();
+        return $lista;
+    }
+
+    public function buscarLocalizacao(){
+        $localizacao = new ControllerLocalizacao();
+        $busca = $localizacao->buscarLocalizacao();
+        return $busca;
+    }
+
+    public function removerLocalizacao(){
+        $localizacao = new ControllerLocalizacao();
+        $res = $localizacao->removerLocalizacao();
+        return $res;
+    }
+    
+    // Alterar e exibir preço
+    public function buscarPreco($id){
+        $preco = new ControllerPreco();
+        $res = $preco->buscarPreco($id);
+        return $res;
+    }
+    
+    public function alterarPreco($array){
+        $preco = new ControllerPreco();
+        $res = $preco->alterarPreco();
+    }
+    
+    public function listarPreco(){
+        $preco = new ControllerPreco();
+        $res = $preco->listarPreco();
+        return $res;
+    }
+
 
     //Por favor futuro programador, levar isso para o controller depois
     //aproveita e retira e transferir a l�gica dentro da pasta BD para database... se n�o o c�digo fica reduntante
@@ -138,7 +186,7 @@ class Fachada {
         }
     }
 
-    //Isso aqui tamb�m
+    //Isso aqui também
     public function deslogar() {
         session_abort('login');
         header("Location: ../../../");

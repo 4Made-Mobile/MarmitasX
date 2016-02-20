@@ -1,1 +1,0 @@
-[13-Feb-2016 11:36:43 America/Sao_Paulo] PHP Fatal error:  Call to a member function fetch() on a non-object in /home/fourmade/public_html/webservice/bd/bdpedido.php on line 39

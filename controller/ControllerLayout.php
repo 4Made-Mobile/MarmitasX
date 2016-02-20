@@ -13,9 +13,6 @@ class ControllerLayout {
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
 
-                    <p class="centered"><a href="../index/index.php"><img src="../../../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-                    <h5 class="centered">Usuário</h5>
-
                     <li class="mt">
                         <a class="active" href="../index/index.php">
                             <i class="fa fa-dashboard"></i>
@@ -30,6 +27,7 @@ class ControllerLayout {
                         </a>
                         <ul class="sub">
                             <li><a  href="../pedido/listaPedido.php"> lista </a></li>
+                            <li><a  href="../pedido/cadastroPedido.php"> cadastro </a></li>
                         </ul>
                     </li>
 
@@ -63,6 +61,27 @@ class ControllerLayout {
                         <ul class="sub">
                             <li><a  href="../tipo/cadastroTipo.php"> cadastro </a></li>
                             <li><a  href="../tipo/listaTipo.php"> lista </a></li>
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" >
+                            <i class="fa fa-book"></i>
+                            <span> <strong> Localização </strong></span>
+                        </a>
+                        <ul class="sub">
+                            <li><a  href="../localizacao/cadastroLocalizacao.php"> cadastro </a></li>
+                            <li><a  href="../localizacao/listaLocalizacao.php"> lista </a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="sub-menu">
+                        <a href="javascript:;" >
+                            <i class="fa fa-book"></i>
+                            <span> <strong> Preco </strong></span>
+                        </a>
+                        <ul class="sub">
+                            <li><a  href="../preco/listaPreco.php"> lista </a></li>
                         </ul>
                     </li>
 

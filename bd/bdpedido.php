@@ -21,7 +21,7 @@ class BdPedido {
                                                       :id,
                                                       :cliente_id,
                                                       :obs,
-                                                      :localizacao,
+                                                      :localizacao_id,
                                                       :data_hora,
                                                       :status
                                   )');
