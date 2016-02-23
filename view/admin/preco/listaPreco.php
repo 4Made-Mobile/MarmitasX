@@ -85,7 +85,6 @@ $lista = $fachada->listarPreco()->fetchAll(PDO::FETCH_OBJ);
                                                         <td><?php echo $linha->descricao; ?></td>
                                                         <td><?php echo $linha->valor; ?></td>
                                                         <td><a href="detalhePreco.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
-                                                        <td><a href="removePreco.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
                                                     </tr>
                                                     <?php
                                                 }

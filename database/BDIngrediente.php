@@ -73,6 +73,26 @@ class BDIngrediente extends ConexaoBD {
         }
     }
 
+    public function cardapio() {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return "erro no banco de dados";
+        }
+        try {
+            $data = date("Y-m-d G:i:s");
+            $query = $pdo->query("SELECT id, descricao, tipo_id FROM  ingrediente WHERE data1 <= '$data' AND  data2 >=  '$data'");
+            $pdo = $this->fecharBD();
+            // verifica se existe algo para mostrar
+            if (!$query) {
+                throw new Exception();
+            } else {
+                return $query;
+            }
+        } catch (Exception $ex) {
+            return "Erro: $ex";
+        }
+    }
+
     public function alterarIngrediente($array) {
         $pdo = $this->abrirBD();
         if ($pdo == NULL) {

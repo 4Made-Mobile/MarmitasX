@@ -5,10 +5,36 @@ include_once "../../../database/BDPedido.php";
 class ControllerPedido {
 
     public function __construct() {
-        //vazio
+//vazio
     }
 
-    public function buscarPedidoID($id){
+    public function cadastrarPedido($array) {
+        try {
+            $pedido = new BDPedido();
+            $res = $pedido->cadastrarPedido($array);
+            return res;
+        } catch (Exception $ex) {
+            return 2;
+        }
+    }
+
+    public function adicionarPedidoIngrediente($id_pedido, $id_ingrediente) {
+        try {
+
+            $array = array(
+                'pedido_id' => $id_pedido,
+                'ingrediente' => $id_ingrediente,
+            );
+
+            $pedido = new BDPedido();
+            $res = $pedido->adicionarPedidoIngrediente($array);
+            return $res;
+        } catch (Exception $ex) {
+            return 2;
+        }
+    }
+
+    public function buscarPedidoID($id) {
         try {
             $tipo = new BDPedido();
             $busca = $tipo->buscarPedidoID($id);
@@ -18,22 +44,22 @@ class ControllerPedido {
         }
     }
 
-    public function listarPedido($carne = NULL, $localizacao = NULL){
-        try{
+    public function listarPedido($carne = NULL, $localizacao = NULL) {
+        try {
             $obj = new BDPedido();
 
-            // Aquela velha verificação estilosa
-            if($carne == NULL && $localizacao == NULL){
+// Aquela velha verificação estilosa
+            if ($carne == NULL && $localizacao == NULL) {
                 $lista = $obj->findAll();
-            }else if($carne == NULL && $localizacao != NULL){
-                $lista =  $obj->FindByCarne($carne);
-            }else if($carne != NULL && $localizacao == NULL){
-                $lista =  $obj->findByLocalizacao($localizacao);
-            }else{
+            } else if ($carne == NULL && $localizacao != NULL) {
+                $lista = $obj->FindByCarne($carne);
+            } else if ($carne != NULL && $localizacao == NULL) {
+                $lista = $obj->findByLocalizacao($localizacao);
+            } else {
                 $lista = $obj->fiinByLocalizacaoCarne($carne, $localizacao);
             }
             return $lista;
-        }catch (Exception $ex){
+        } catch (Exception $ex) {
             echo "Erro: $ex";
         }
     }
@@ -42,7 +68,7 @@ class ControllerPedido {
         try {
             $mpdf = new mPDF('', 'A7');
             $mpdf->allow_charset_conversion = true;
-            // Gerando conteúdo do PDF
+// Gerando conteúdo do PDF
             ob_start();
             $html = ob_get_clean();
             $html = utf8_encode($html);
@@ -57,7 +83,7 @@ class ControllerPedido {
             }
             $html .= "<br>";
 
-            // GERANDO PDF
+// GERANDO PDF
             $mpdf->WriteHTML($html);
             $mpdf->Output('pedido' . '.pdf', 'I');
             exit();
@@ -66,11 +92,21 @@ class ControllerPedido {
         }
     }
 
+    public function lastPedido($id) {
+        try {
+            $pedido = new BDPedido();
+            $res = $pedido->lastPedido($id);
+            return $res;
+        } catch (Exception $ex) {
+            return "erro: $ex";
+        }
+    }
+
     public function imprimirLista($lista) {
         try {
             $mpdf = new mPDF('', 'A7');
             $mpdf->allow_charset_conversion = true;
-            // Gerando conteúdo do PDF
+// Gerando conteúdo do PDF
             ob_start();
             $html = ob_get_clean();
             $html = utf8_encode($html);
@@ -88,7 +124,7 @@ class ControllerPedido {
                 }
                 $html .= "<br><br><br><br>";
             }
-            // GERANDO PDF
+// GERANDO PDF
             $mpdf->WriteHTML($html);
             $mpdf->Output('pedido' . '.pdf', 'I');
             exit();

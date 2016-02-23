@@ -28,10 +28,10 @@ class ControllerPreco {
         }
     }
 
-    public function alterarPreco($valor) {
+    public function alterarPreco($array) {
         try {
-            $Preco = new BDPreco();
-            $res = $Preco->alterarPreco($valor);
+            $preco = new BDPreco();
+            $res = $preco->alterarPreco($array);
             return $res;
         } catch (Exception $ex) {
             echo "Erro: $ex";

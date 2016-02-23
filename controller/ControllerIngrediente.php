@@ -73,6 +73,16 @@ class ControllerIngrediente {
         }
     }
 
+    public function cardapio() {
+        try {
+            $ingredintes = new BDIngrediente();
+            $lista = $ingredintes->cardapio();
+            return $lista;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
 }
 
 ?>

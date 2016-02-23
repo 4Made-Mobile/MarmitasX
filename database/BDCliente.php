@@ -39,6 +39,39 @@ class BDCliente extends ConexaoBD {
         }
     }
 
+    public function verificaLogin($telefone, $senha) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            $var = false;
+        }
+        try {
+            $var = false;
+            $this->pdo = $this->abrirBD();
+            $cliente = $this->buscaClienteTelefone($telefone);
+            if ($cliente->senha == $senha) {
+                $var = true;
+            } else {
+                $var = false;
+            }
+            $this->pdo = $this->fecharBD();
+            return $var;
+        } catch (Exception $ex) {
+            return $var;
+        }
+    }
+
+    public function buscaClientetelefone($telefone) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $array = $this->pdo->query("select * from cliente where telefone = '" . $telefone . "'")->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
     public function listarCliente() {
         $pdo = $this->abrirBD();
         if ($pdo == NULL) {

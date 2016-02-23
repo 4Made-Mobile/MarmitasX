@@ -31,6 +31,19 @@ class BDPreco extends ConexaoBD {
         }
     }
 
+    public function listarPrecoId() {
+        $pdo = $this->listarPreco();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $query = $pdo->query("select *from preco where id = 1");
+            return $query;
+        } catch (Exception $ex) {
+            
+        }
+    }
+
     public function buscarPrecoID($id) {
         $pdo = $this->abrirBD();
         if ($pdo == NULL) {
@@ -50,7 +63,7 @@ class BDPreco extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("UPDATE preco set valor = '" . $array['valor'] . "'
+            $query = $pdo->query("UPDATE preco set valor = " . $array['valor'] . "
             where id = " . $array['id'] . "");
             return 1;
         } catch (PDOException $ex) {

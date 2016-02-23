@@ -9,7 +9,6 @@ include_once "../../../controller/ControllerPedido.php";
 include_once "../../../controller/ControllerLocalizacao.php";
 include_once "../../../controller/ControllerPreco.php";
 
-
 class Fachada {
 
     public function __construct() {
@@ -19,6 +18,30 @@ class Fachada {
     public function imprimirLista($lista) {
         $pedido = new ControllerPedido();
         $pedido->imprimirLista($lista);
+    }
+
+    public function cadastrarPedido($array) {
+        $pedido = new ControllerPedido();
+        $res = $pedido->cadastrarPedido($array);
+        return $res;
+    }
+
+    public function adicionarPedidoIngrediente($id_pedido, $id_ingrediente) {
+        $pedido = new ControllerPedido();
+        $res = $pedido->adicionarPedidoIngrediente($id_pedido, $id_ingrediente);
+        return $res;
+    }
+
+    public function cadastrarPedidoIngrediente($array, $id) {
+        $pedido = new ControllerPedido();
+        $res = $pedido->cadastrarPedidoIngrediente($array, $id);
+        return $res;
+    }
+
+    public function lastPedido($id) {
+        $pedido = new ControllerPedido();
+        $res = $pedido->lastPedido($id);
+        return $res;
     }
 
     public function imprimirPedido($obj) {
@@ -64,6 +87,12 @@ class Fachada {
         $ingrediente = new ControllerIngrediente();
         $res = $ingrediente->adicionarIngrediente($array);
         return $res;
+    }
+
+    public function carpadio() {
+        $ingredientes = new ControllerIngrediente();
+        $lista = $ingredientes->cardapio();
+        return $lista;
     }
 
     public function buscarIngredienteID($id) {
@@ -122,54 +151,54 @@ class Fachada {
     }
 
     // CRUD da localização
-    public function cadastrarLocalizacao($array){
+    public function cadastrarLocalizacao($array) {
         $localizacao = new ControllerLocalizacao();
         $res = $localizacao->cadastrar($array);
         return $res;
     }
 
-    public function alterarLocalizacao($array){
+    public function alterarLocalizacao($array) {
         $localizacao = new ControllerLocalizacao();
         $res = $localizacao->alterarLocalizacao($array);
         return $res;
     }
 
-    public function listarLocalizacao(){
+    public function listarLocalizacao() {
         $localizacao = new ControllerLocalizacao();
         $lista = $localizacao->listar();
         return $lista;
     }
 
-    public function buscarLocalizacao(){
+    public function buscarLocalizacao($id) {
         $localizacao = new ControllerLocalizacao();
-        $busca = $localizacao->buscarLocalizacao();
+        $busca = $localizacao->buscarLocalizacao($id);
         return $busca;
     }
 
-    public function removerLocalizacao(){
+    public function removerLocalizacao() {
         $localizacao = new ControllerLocalizacao();
         $res = $localizacao->removerLocalizacao();
         return $res;
     }
-    
+
     // Alterar e exibir preço
-    public function buscarPreco($id){
+    public function buscarPrecoID($id) {
         $preco = new ControllerPreco();
-        $res = $preco->buscarPreco($id);
+        $res = $preco->buscarPrecoID($id);
         return $res;
     }
-    
-    public function alterarPreco($array){
+
+    public function alterarPreco($array) {
         $preco = new ControllerPreco();
-        $res = $preco->alterarPreco();
+        $res = $preco->alterarPreco($array);
+        return $res;
     }
-    
-    public function listarPreco(){
+
+    public function listarPreco() {
         $preco = new ControllerPreco();
         $res = $preco->listarPreco();
         return $res;
     }
-
 
     //Por favor futuro programador, levar isso para o controller depois
     //aproveita e retira e transferir a l�gica dentro da pasta BD para database... se n�o o c�digo fica reduntante
