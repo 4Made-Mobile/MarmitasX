@@ -70,7 +70,7 @@ $fachada->verificarLogin();
                                         <thead>
                                             <tr>
                                                 <th> ID </th>
-                                                <th> Nome do Bairro </th>
+                                                <th> Descrição </th>
                                                 <th class="numeric"> Detalhes </th>
                                             </tr>
                                         </thead>

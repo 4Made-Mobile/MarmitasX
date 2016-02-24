@@ -4,7 +4,7 @@ include_once '../../../assets/php/mpdf/mpdf.php';
 
 $fachada = new Fachada();
 $fachada->verificarLogin();
-$ingrediente = $fachada->listarIngrediente()->fetchAll(PDO::FETCH_OBJ);
+$cardapio = $fachada->carpadio();
 $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
 ?>
 <!DOCTYPE html>

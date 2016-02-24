@@ -43,17 +43,14 @@ if (!empty($_POST)) {
         if ($res) {
             //Pegar ID do último cadastro feito no pedido
             //E passar como parametro junto com a lista dos ingredintes
-            $id = $fachada->lastPedido($array['cliente_id'])->id;
+            $id = $fachada->lastPedido($array['cliente_id']);
             foreach ($_SESSION['lista_ingredientes'] AS $linha) {
                 $res2 = $fachada->adicionarPedidoIngrediente($id, $linha);
-            }
-            if ($res2) {
-                echo "<script>window.alert('Cadastrado com sucesso')</script>";
-                // redirecionar
             }
             // limpar tudo antes de sair. obrigado
             unset($_POST);
             unset($_SESSION['lista_ingredientes']);
+            header("Location: ../");
         } else if ($res == 0) {
             // Avisa aê
             echo "<script>window.alert('Erro ao cadastrar')</script>";
