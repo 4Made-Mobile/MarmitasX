@@ -1,3 +1,3 @@
 <?php
-    echo md5('admin1234');
+  echo "oi";
 ?>

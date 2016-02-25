@@ -18,6 +18,16 @@ class ControllerPreco {
         }
     }
 
+    public function listarPrecoId() {
+        try {
+            $preco = new BDPreco();
+            $lista = $preco->listarPrecoId();
+            return $lista;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
     public function buscarPrecoID($id) {
         try {
             $Preco = new BDPreco();
@@ -36,8 +46,8 @@ class ControllerPreco {
         } catch (Exception $ex) {
             echo "Erro: $ex";
         }
-    }    
-    
+    }
+
 }
 
 ?>

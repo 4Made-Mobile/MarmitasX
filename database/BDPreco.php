@@ -1,6 +1,10 @@
 <?php
 
-include_once "../../../database/ConexaoBD.php";
+if (file_exists('../../../database/ConexaoBD.php')) {
+    include_once "../../../database/ConexaoBD.php";
+} else {
+    include_once "database/ConexaoBD.php";
+}
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,15 +36,15 @@ class BDPreco extends ConexaoBD {
     }
 
     public function listarPrecoId() {
-        $pdo = $this->listarPreco();
+        $pdo = $this->abrirBD();
         if ($pdo == NULL) {
             return false;
         }
         try {
             $query = $pdo->query("select *from preco where id = 1");
             return $query;
-        } catch (Exception $ex) {
-            
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 

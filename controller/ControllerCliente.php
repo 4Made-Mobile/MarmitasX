@@ -15,7 +15,7 @@ class ControllerCliente {
             $res = $tipo->adicionarCliente($array);
             return $res;
         } catch (Exception $ex) {
-            echo "Erro: $ex";
+            return false;
         }
     }
 
@@ -54,6 +54,16 @@ class ControllerCliente {
         }
     }
 
+    public function buscarClienteTelefone($telefone) {
+        try {
+            $cliente = new BDCliente();
+            $busca = $cliente->buscaClientetelefone($telefone);
+            return $busca;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
     public function alterarCliente($array) {
         try {
             $tipo = new BDCliente();
@@ -70,6 +80,16 @@ class ControllerCliente {
             $tipo->removerCliente($id);
         } catch (Excepetion $ex) {
             echo "Erro: $ex";
+        }
+    }
+
+    public function loginCliente($telefone, $senha) {
+        try {
+            $cliente = new BDCliente();
+            $res = $cliente->loginCliente($telefone, $senha);
+            return $res;
+        } catch (Exception $ex) {
+            return false;
         }
     }
 

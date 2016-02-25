@@ -21,8 +21,8 @@ class ConexaoBD {
     protected function abrirBD() {
         $pdo = null;
         try {
-            //$pdo = new PDO("mysql:host=localhost;dbname=fourmade_marmita", "fourmade_marmita", "p2ssw0rd");
-            $pdo = new PDO("mysql:host=localhost;dbname=fourmade_marmita", "root", "");
+            $pdo = new PDO("mysql:host=localhost;dbname=fourmade_marmita", "fourmade_marmita", "p2ssw0rd");
+//            $pdo = new PDO("mysql:host=localhost;dbname=fourmade_marmita", "root", "");
         } catch (PDOException $ex) {
             echo $ex;
         }

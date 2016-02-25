@@ -124,6 +124,11 @@ class Fachada {
         $res = $cliente->buscarClienteID($id);
         return $res;
     }
+    
+    public function buscarClienteTelefone($telefone){
+        $cliente = new ControllerCliente();
+        return $cliente->buscarClienteTelefone($telefone);
+    }
 
     public function listarCliente() {
         $cliente = new ControllerCliente();
@@ -197,6 +202,18 @@ class Fachada {
     public function listarPreco() {
         $preco = new ControllerPreco();
         $res = $preco->listarPreco();
+        return $res;
+    }
+
+    public function listarPrecoId() {
+        $preco = new ControllerPreco();
+        $res = $preco->listarPrecoId();
+        return $res;
+    }
+
+    public function loginCliente($telefone, $senha) {
+        $cliente = new ControllerCliente();
+        $res = $cliente->loginCliente();
         return $res;
     }
 

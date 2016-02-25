@@ -1,6 +1,10 @@
 <?php
 
-include_once "../../../database/ConexaoBD.php";
+if (file_exists('../../../database/ConexaoBD.php')) {
+    include_once "../../../database/ConexaoBD.php";
+} else {
+    include_once "database/ConexaoBD.php";
+}
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -177,7 +181,7 @@ class BDPedido extends ConexaoBD {
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
                     where t1.id = " . $id . "
-            ");
+            ")->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $ex) {
             echo "Erro: $ex";
         }

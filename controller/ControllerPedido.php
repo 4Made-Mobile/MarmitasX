@@ -36,8 +36,8 @@ class ControllerPedido {
 
     public function buscarPedidoID($id) {
         try {
-            $tipo = new BDPedido();
-            $busca = $tipo->buscarPedidoID($id);
+            $pedido = new BDPedido();
+            $busca = $pedido->findById($id);
             return $busca;
         } catch (Exception $ex) {
             echo "Erro: $ex";

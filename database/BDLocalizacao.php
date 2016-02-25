@@ -1,5 +1,11 @@
 <?php
 
+if(file_exists('../../../database/ConexaoBD.php')) {
+    include_once "../../../database/ConexaoBD.php";
+}else{
+    include_once "database/ConexaoBD.php";
+}
+
 class BDLocalizacao extends ConexaoBD {
 
     public function cadastrar($array) {

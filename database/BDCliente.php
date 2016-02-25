@@ -1,6 +1,10 @@
 <?php
 
-include_once "../../../database/ConexaoBD.php";
+if (file_exists('../../../database/ConexaoBD.php')) {
+    include_once "../../../database/ConexaoBD.php";
+} else {
+    include_once "database/ConexaoBD.php";
+}
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -29,31 +33,31 @@ class BDCliente extends ConexaoBD {
                                                                     :id,
                                                                     :nome,
                                                                     :telefone,
-                                                                    :senha
+                                                                    :senha,
+                                                                    :status
                                         )');
             $stmt->execute($array);
             $pdo = $this->fecharBD();
-            return $stmt->rowCount();
+            return true;
         } catch (Exception $ex) {
-            
+            return false;
         }
     }
 
-    public function verificaLogin($telefone, $senha) {
+    public function loginCliente($telefone, $senha) {
         $pdo = $this->abrirBD();
         if ($pdo == NULL) {
             $var = false;
         }
         try {
             $var = false;
-            $this->pdo = $this->abrirBD();
             $cliente = $this->buscaClienteTelefone($telefone);
             if ($cliente->senha == $senha) {
                 $var = true;
             } else {
                 $var = false;
             }
-            $this->pdo = $this->fecharBD();
+            $pdo = $this->fecharBD();
             return $var;
         } catch (Exception $ex) {
             return $var;
@@ -66,7 +70,8 @@ class BDCliente extends ConexaoBD {
             return false;
         }
         try {
-            $array = $this->pdo->query("select * from cliente where telefone = '" . $telefone . "'")->fetch(PDO::FETCH_OBJ);
+            $array = $pdo->query("select * from cliente where telefone = '" . $telefone . "'")->fetch(PDO::FETCH_OBJ);
+            return $array;
         } catch (PDOException $ex) {
             return false;
         }
