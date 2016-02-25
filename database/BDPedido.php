@@ -93,9 +93,9 @@ class BDPedido extends ConexaoBD {
         }
     }
 
-    public function findByCarne($carne = NULL) {
+    public function findByCarne($carne) {
         $pdo = $this->abrirBD();
-        if ($pdo == null || $carne == NULL) {
+        if ($pdo == null) {
             exit;
         }
         try {
@@ -108,7 +108,7 @@ class BDPedido extends ConexaoBD {
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t3.id = " . $carne . "
+                    where t4.id = 3 AND t3.id = $carne
             ");
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOExcepetion $ex) {
@@ -116,9 +116,9 @@ class BDPedido extends ConexaoBD {
         }
     }
 
-    public function findByLocalizacao($localizacao = NULL) {
+    public function findByLocalizacao($localizacao) {
         $pdo = $this->abrirBD();
-        if ($pdo == null || $localizacao == null) {
+        if ($pdo == null) {
             exit;
         }
 
@@ -143,7 +143,7 @@ class BDPedido extends ConexaoBD {
 
     public function findByLocalizacaoCarne($carne = NULL, $localizacao = NULL) {
         $pdo = $this->abrirBD();
-        if ($pdo == null || $carne == NULL || $localizacao == NULL) {
+        if ($pdo == null) {
             exit;
         }
         try {
@@ -167,23 +167,51 @@ class BDPedido extends ConexaoBD {
 
     public function findById($id) {
         $pdo = $this->abrirBD();
-        if ($pdo == null || $id == null) {
+        if ($pdo == null) {
             exit;
         }
         try {
             $query = $pdo->query("
-                select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
-                    t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status
+                select t1.id AS id, t6.nome AS cliente, t3.descricao AS ingrediente,
+                    t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status,
+                    t4.descricao AS tipo, t6.telefone AS telefone
                     from pedido t1
                     inner join pedido_ingrediente t2 ON (t1.id = t2.pedido_id)
                     inner join ingrediente t3 ON (t3.id = t2.ingrediente)
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t1.id = " . $id . "
+                    where t1.id = $id
             ")->fetchAll(PDO::FETCH_OBJ);
+            return $query;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
+        }
+    }
+
+    public function impressoPedido($id) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $pdo->query("UPDATE pedido SET status = 2 where id = $id");
+            return true;
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
+    public function removerPedido($id) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $pdo->query("UPDATE pedido SET status = 0 where id = $id");
+            return true;
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 

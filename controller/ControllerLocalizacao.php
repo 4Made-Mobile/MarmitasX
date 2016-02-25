@@ -38,12 +38,18 @@ class ControllerLocalizacao {
         }
     }
 
-    public function alterar($array) {
+    public function alterarLocalizacao($array) {
         return $res;
     }
 
-    public function remover($id) {
-        return $res;
+    public function removerLocalizacao($id) {
+        try {
+            $db = new BDLocalizacao();
+            $res = $db->removerLocalizacao($id);
+            return $res;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
 }

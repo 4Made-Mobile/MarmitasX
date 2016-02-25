@@ -74,19 +74,20 @@ class ControllerCliente {
         }
     }
 
-    public function removerCliente($id) {
-        try {
-            $tipo = new BDCliente();
-            $tipo->removerCliente($id);
-        } catch (Excepetion $ex) {
-            echo "Erro: $ex";
-        }
-    }
-
     public function loginCliente($telefone, $senha) {
         try {
             $cliente = new BDCliente();
             $res = $cliente->loginCliente($telefone, $senha);
+            return $res;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    public function removerCliente($id) {
+        try {
+            $cliente = new BDCliente();
+            $res = $cliente->removerCliente($id);
             return $res;
         } catch (Exception $ex) {
             return false;

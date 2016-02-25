@@ -95,6 +95,12 @@ class Fachada {
         return $lista;
     }
 
+    public function listarIngredienteCarnes() {
+        $ingredientes = new ControllerIngrediente();
+        $lista = $ingredientes->listarIngredienteCarnes();
+        return $lista;
+    }
+
     public function buscarIngredienteID($id) {
         $ingrediente = new ControllerIngrediente();
         $res = $ingrediente->buscarIngredienteID($id);
@@ -124,8 +130,8 @@ class Fachada {
         $res = $cliente->buscarClienteID($id);
         return $res;
     }
-    
-    public function buscarClienteTelefone($telefone){
+
+    public function buscarClienteTelefone($telefone) {
         $cliente = new ControllerCliente();
         return $cliente->buscarClienteTelefone($telefone);
     }
@@ -180,9 +186,9 @@ class Fachada {
         return $busca;
     }
 
-    public function removerLocalizacao() {
+    public function removerLocalizacao($id) {
         $localizacao = new ControllerLocalizacao();
-        $res = $localizacao->removerLocalizacao();
+        $res = $localizacao->removerLocalizacao($id);
         return $res;
     }
 
@@ -230,6 +236,30 @@ class Fachada {
                 header("Location: ../../../");
             }
         }
+    }
+
+    public function removerTipo($id) {
+        $tipo = new ControllerTipo();
+        $res = $tipo->removerTipo($id);
+        return $res;
+    }
+
+    public function removerIngrediente($id) {
+        $ingrediente = new ControllerIngrediente();
+        $res = $ingrediente->removerIngrediente($id);
+        return $res;
+    }
+
+    public function removerPedido($id) {
+        $pedido = new ControllerPedido();
+        $res = $pedido->removerPedido($id);
+        return $res;
+    }
+
+    public function removerCliente($id) {
+        $cliente = new ControllerCliente();
+        $res = $cliente->removerCliente($id);
+        return $res;
     }
 
     //Isso aqui também

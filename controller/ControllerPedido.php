@@ -40,7 +40,7 @@ class ControllerPedido {
             $busca = $pedido->findById($id);
             return $busca;
         } catch (Exception $ex) {
-            echo "Erro: $ex";
+            return false;
         }
     }
 
@@ -51,9 +51,9 @@ class ControllerPedido {
 // Aquela velha verificação estilosa
             if ($carne == NULL && $localizacao == NULL) {
                 $lista = $obj->findAll();
-            } else if ($carne == NULL && $localizacao != NULL) {
-                $lista = $obj->FindByCarne($carne);
             } else if ($carne != NULL && $localizacao == NULL) {
+                $lista = $obj->FindByCarne($carne);
+            } else if ($carne == NULL && $localizacao != NULL) {
                 $lista = $obj->findByLocalizacao($localizacao);
             } else {
                 $lista = $obj->fiinByLocalizacaoCarne($carne, $localizacao);
@@ -61,6 +61,16 @@ class ControllerPedido {
             return $lista;
         } catch (Exception $ex) {
             echo "Erro: $ex";
+        }
+    }
+    
+    public function removerPedido($id){
+        try{
+            $pedido = new BDPedido();
+            $res = $pedido->removerPedido($id);
+            return $res;
+        } catch (Exception $ex) {
+            return false;
         }
     }
 
@@ -72,7 +82,6 @@ class ControllerPedido {
             ob_start();
             $html = ob_get_clean();
             $html = utf8_encode($html);
-            $html .= "----- INÍCIO -----<br>";
             $html .= "Id: " . $obj[0]->id . "<br>";
             $html .= "Cliente: " . $obj[0]->cliente . "<br>";
             $html .= "Localização: " . $obj[0]->localizacao . "<br>";
@@ -82,6 +91,15 @@ class ControllerPedido {
                 $html .= "<br>";
             }
             $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<br>";
+            $html .= "<h3>Cliente: " . $obj[0]->cliente . "</h3><br>";
 
 // GERANDO PDF
             $mpdf->WriteHTML($html);
@@ -110,10 +128,9 @@ class ControllerPedido {
             ob_start();
             $html = ob_get_clean();
             $html = utf8_encode($html);
-            $html .= "<br><br><br><br><br><br><br><br><br><br><br><br><br>";
             foreach ($lista as $linha) {
                 $obj = $this->buscarPedidoID($linha->id);
-                $html .= "<b><h3>C</h3>liente: " . $obj[0]->cliente . "</b><br>";
+                $html .= "<b>Cliente: " . $obj[0]->cliente . "</b><br>";
                 $html .= "Telefone: " . $obj[0]->telefone . "<br>";
                 $html .= "Localização: " . $obj[0]->localizacao . "<br>";
                 $html .= "Observação: " . $obj[0]->obs . "<br>";
@@ -122,7 +139,9 @@ class ControllerPedido {
                     $html .= "<b>" . $item->tipo . "</b>: " . $item->ingrediente;
                     $html .= "<br>";
                 }
-                $html .= "<br><br><br><br>";
+                $html .= "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
+                $html .= "<b>Cliente: " . $obj[0]->cliente . "</b><br>";
+                $html .= "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
             }
 // GERANDO PDF
             $mpdf->WriteHTML($html);

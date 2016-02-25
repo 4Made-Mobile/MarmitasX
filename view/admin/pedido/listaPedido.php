@@ -4,7 +4,8 @@ include_once '../../../assets/php/mpdf/mpdf.php';
 
 $fachada = new Fachada();
 $fachada->verificarLogin();
-$cardapio = $fachada->carpadio();
+$localizacao = $fachada->listarLocalizacao();
+$carnes = $fachada->listarIngredienteCarnes();
 $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
 ?>
 <!DOCTYPE html>
@@ -71,20 +72,28 @@ $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
                                     <h4><i class="fa fa-user"></i> Lista dos Tipos de Pedidos </h4>
 
                                     <!-- Selecionar tipo de carne -->
-                                    <select name="ingrediente">
-                                        <option selected="<?php echo $_GET['ingrediente'] == "todas"; ?>" value="todas">Todas</option>
+                                    <select name="carne">
+                                        <option selected="<?php echo $_GET['ingrediente'] == "todas"; ?>" value="">Todas</option>
                                         <?php
-                                        foreach ($ingrediente as $item) {
-
-                                            if ($item->tipo_id == 3) {
-                                                ?>
-                                                <option
-                                                    value="<?php echo $item->id; ?>"><?php echo $item->descricao; ?></option>
-                                                    <?php
-                                                }
+                                        foreach ($carnes as $item) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $item->id; ?>"><?php echo $item->descricao; ?></option>
+                                                <?php
                                             }
                                             ?>
-                                        <option selected="<?php echo $_GET['ingrediente'] == "nenhuma"; ?>" value="nenhuma">Nenhuma </option>
+                                    </select>
+
+                                    <select name="localizacao">
+                                        <option selected="<?php echo $_GET['localizacao'] == "todas"; ?>" value="">Todas</option>
+                                        <?php
+                                        foreach ($localizacao as $item) {
+                                            ?>
+                                            <option
+                                                value="<?php echo $item->id; ?>"><?php echo $item->descricao; ?></option>
+                                                <?php
+                                            }
+                                            ?>
                                     </select>
 
                                     <!-- botão com o filtrar -->
@@ -93,7 +102,7 @@ $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
 
 
                                 <?php
-                                // Emitindo E-Mail.
+// Emitindo E-Mail.
                                 if (!empty($_GET['ingrediente'])) {
                                     ?>
                                     <a target="_blank" href="imprimirPdf.php?ingrediente=<?php echo $_GET['ingrediente']; ?>"<button class="btn btn-theme"> Imprimir </button></a>
@@ -160,41 +169,6 @@ $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
             <!--script for this page-->
             <script src="../../../assets/js/sparkline-chart.js"></script>
             <script src="../../../assets/js/zabuto_calendar.js"></script>
-
-            <script type="application/javascript">
-                $(document).ready(function () {
-                $("#date-popover").popover({html: true, trigger: "manual"});
-                $("#date-popover").hide();
-                $("#date-popover").click(function (e) {
-                $(this).hide();
-                });
-
-                $("#my-calendar").zabuto_calendar({
-                action: function () {
-                return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                return myNavFunction(this.id);
-                },
-                ajax: {
-                url: "show_data.php?action=1",
-                modal: true
-                },
-                legend: [
-                {type: "text", label: "Special event", badge: "00"},
-                {type: "block", label: "Regular event", }
-                ]
-                });
-                });
-
-
-                function myNavFunction(id) {
-                $("#date-popover").hide();
-                var nav = $("#" + id).data("navigation");
-                var to = $("#" + id).data("to");
-                console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-                }
-            </script>
 
 
     </body>

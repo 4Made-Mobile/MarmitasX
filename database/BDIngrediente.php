@@ -1,8 +1,8 @@
 <?php
 
-if(file_exists('../../../database/ConexaoBD.php')) {
+if (file_exists('../../../database/ConexaoBD.php')) {
     include_once "../../../database/ConexaoBD.php";
-}else{
+} else {
     include_once "database/ConexaoBD.php";
 }
 /*
@@ -34,7 +34,8 @@ class BDIngrediente extends ConexaoBD {
                                                                     :descricao,
                                                                     :data1,
                                                                     :data2,
-                                                                    :tipo_id
+                                                                    :tipo_id,
+                                                                    :status
                                         )');
             $stmt->execute($array);
             $pdo = $this->fecharBD();
@@ -53,7 +54,8 @@ class BDIngrediente extends ConexaoBD {
             $query = $pdo->query("select t1.id AS id, t1.descricao AS descricao,
                                   t1.data1 AS data1 , t1.data2 AS data2,
                                   t2.descricao AS tipo, t1.tipo_id AS tipo_id from ingrediente t1
-                                  inner join tipo t2 on (t1.tipo_id = t2.id)");
+                                  inner join tipo t2 on (t1.tipo_id = t2.id)
+                                  where t1.status != 0");
             return $query;
         } catch (Exception $ex) {
             
@@ -70,7 +72,7 @@ class BDIngrediente extends ConexaoBD {
                                   t1.data1 AS data1 , t1.data2 AS data2,
                                   t2.descricao AS tipo from ingrediente t1
                                   inner join tipo t2 on (t1.tipo_id = t2.id)
-                                  where t1.id = $id");
+                                  where t1.id = $id AND t1.status != 0");
             return $query;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
@@ -84,7 +86,7 @@ class BDIngrediente extends ConexaoBD {
         }
         try {
             $data = date("Y-m-d G:i:s");
-            $query = $pdo->query("SELECT id, descricao, tipo_id FROM  ingrediente WHERE data1 <= '$data' AND  data2 >=  '$data'");
+            $query = $pdo->query("SELECT id, descricao, tipo_id FROM  ingrediente WHERE data1 <= '$data' AND  data2 >=  '$data' AND status != 0");
             $pdo = $this->fecharBD();
             // verifica se existe algo para mostrar
             if (!$query) {
@@ -109,6 +111,36 @@ class BDIngrediente extends ConexaoBD {
             return 1;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
+        }
+    }
+
+    public function listarIngredienteCarnes() {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $query = $pdo->query("select t1.id AS id, t1.descricao AS descricao,
+                                  t1.data1 AS data1 , t1.data2 AS data2,
+                                  t2.descricao AS tipo from ingrediente t1
+                                  inner join tipo t2 on (t1.tipo_id = t2.id)
+                                  where t2.id = 3 AND t1.status != 0");
+            return $query->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $ex) {
+            echo "Erro: $ex";
+        }
+    }
+
+    public function removerIngrediente($id) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $query = $pdo->query("UPDATE ingrediente SET status = 0 where id = $id");
+            return true;
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 

@@ -125,10 +125,12 @@ $fachada->verificarLogin();
                 'data1' => $_POST['data1'],
                 'data2' => $_POST['data2'],
                 'tipo_id' => $_POST['id_tipo'],
+                'status' => 1,
             );
             $res = $fachada->adicionarIngrediente($array);
             if ($res == 1) {
                 echo "<script>window.alert('Cadastrado com sucesso')</script>";
+                echo "<script>window.location = 'listaIngrediente.php'</script>";
             } else if ($res == 0) {
                 echo "<script>window.alert('Já cadastrado')</script>";
             }

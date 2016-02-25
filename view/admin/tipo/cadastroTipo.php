@@ -89,11 +89,12 @@ $fachada->verificarLogin();
             $array = array(
                 'id' => null,
                 'descricao' => $_POST['nome'],
+                'status' => 1,
             );
-            print_r($array);
             $res = $fachada->adicionarTipo($array);
             if ($res == 1) {
                 echo "<script>window.alert('Cadastrado com sucesso')</script>";
+                echo "<script>window.location = 'listaTipo.php'</script>";
             } else if ($res == 0) {
                 echo "<script>window.alert('Já cadastrado')</script>";
             }
@@ -120,42 +121,5 @@ $fachada->verificarLogin();
         <!--script for this page-->
         <script src="../../../assets/js/sparkline-chart.js"></script>
         <script src="../../../assets/js/zabuto_calendar.js"></script>
-
-        <script type="application/javascript">
-            $(document).ready(function () {
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-            $(this).hide();
-            });
-
-            $("#my-calendar").zabuto_calendar({
-            action: function () {
-            return myDateFunction(this.id, false);
-            },
-            action_nav: function () {
-            return myNavFunction(this.id);
-            },
-            ajax: {
-            url: "show_data.php?action=1",
-            modal: true
-            },
-            legend: [
-            {type: "text", label: "Special event", badge: "00"},
-            {type: "block", label: "Regular event", }
-            ]
-            });
-            });
-
-
-            function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-            }
-        </script>
-
-
     </body>
 </html>

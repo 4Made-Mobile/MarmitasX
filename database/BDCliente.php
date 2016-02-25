@@ -70,7 +70,7 @@ class BDCliente extends ConexaoBD {
             return false;
         }
         try {
-            $array = $pdo->query("select * from cliente where telefone = '" . $telefone . "'")->fetch(PDO::FETCH_OBJ);
+            $array = $pdo->query("select * from cliente where telefone = '" . $telefone . "' AND status != 0")->fetch(PDO::FETCH_OBJ);
             return $array;
         } catch (PDOException $ex) {
             return false;
@@ -83,7 +83,7 @@ class BDCliente extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("select *from cliente");
+            $query = $pdo->query("select *from cliente where status != 0");
             return $query;
         } catch (Exception $ex) {
             
@@ -96,7 +96,7 @@ class BDCliente extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("select *from cliente where id = $id");
+            $query = $pdo->query("select *from cliente where id = $id where status != 0");
             return $query;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
@@ -111,10 +111,22 @@ class BDCliente extends ConexaoBD {
         try {
             $stmt = $pdo->prepare('UPDATE cliente SET nome = :nome, telefone = :telefone, senha = :senha WHERE id = :id');
             $stmt->execute($array);
-
             return 1;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
+        }
+    }
+
+    public function removerCliente($id) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $pdo->query('UPDATE cliente SET status = 0 WHERE id = ' . $id . '');
+            return true;
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 

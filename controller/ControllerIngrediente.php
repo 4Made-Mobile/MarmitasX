@@ -66,8 +66,9 @@ class ControllerIngrediente {
 
     public function removerIngrediente($id) {
         try {
-            $tipo = new BDIngrediente();
-            $tipo->removerIngrediente($id);
+            $ingrediente = new BDIngrediente();
+            $res = $ingrediente->removerIngrediente($id);
+            return $res;
         } catch (Excepetion $ex) {
             echo "Erro: $ex";
         }
@@ -77,6 +78,16 @@ class ControllerIngrediente {
         try {
             $ingredintes = new BDIngrediente();
             $lista = $ingredintes->cardapio();
+            return $lista;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    public function listarIngredienteCarnes() {
+        try {
+            $ingredientes = new BDIngrediente();
+            $lista = $ingredientes->listarIngredienteCarnes();
             return $lista;
         } catch (Exception $ex) {
             return false;

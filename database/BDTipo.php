@@ -1,8 +1,8 @@
 <?php
 
-if(file_exists('../../../database/ConexaoBD.php')) {
+if (file_exists('../../../database/ConexaoBD.php')) {
     include_once "../../../database/ConexaoBD.php";
-}else{
+} else {
     include_once "database/ConexaoBD.php";
 }
 /*
@@ -31,7 +31,8 @@ class BDTipo extends ConexaoBD {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $stmt = $pdo->prepare('INSERT INTO tipo Values(
                                                                     :id,
-                                                                    :descricao
+                                                                    :descricao,
+                                                                    :status
                                         )');
             $stmt->execute($array);
             $pdo = $this->fecharBD();
@@ -47,7 +48,7 @@ class BDTipo extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("select *from tipo");
+            $query = $pdo->query("select *from tipo where status != 0");
             return $query;
         } catch (Exception $ex) {
             
@@ -60,7 +61,7 @@ class BDTipo extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("select *from tipo where id = $id");
+            $query = $pdo->query("select *from tipo where id = $id AND id != 0");
             return $query;
         } catch (PDOException $ex) {
             echo "Erro: $ex";
@@ -87,9 +88,10 @@ class BDTipo extends ConexaoBD {
             return false;
         }
         try {
-            $query = $pdo->query("UPDATE tipo set status_tipo = 0 AND data_fim_tipo = " . date('y-m-d') . " where id = $id");
-        } catch (Exception $ex) {
-            echo "Erro: $ex";
+            $pdo->query("UPDATE tipo set status = 0 where id = $id");
+            return true;
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 

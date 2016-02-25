@@ -70,9 +70,10 @@ class ControllerTipo {
     public function removerTipo($id) {
         try {
             $tipo = new BDTipo();
-            $tipo->removerTipo($id);
+            $res = $tipo->removerTipo($id);
+            return $res;
         } catch (Excepetion $ex) {
-            echo "Erro: $ex";
+            return false;
         }
     }
 

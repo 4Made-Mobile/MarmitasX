@@ -1,8 +1,8 @@
 <?php
 
-if(file_exists('../../../database/ConexaoBD.php')) {
+if (file_exists('../../../database/ConexaoBD.php')) {
     include_once "../../../database/ConexaoBD.php";
-}else{
+} else {
     include_once "database/ConexaoBD.php";
 }
 
@@ -59,10 +59,23 @@ class BDLocalizacao extends ConexaoBD {
             exit;
         }
         try {
-            $query = $pdo->query("select *from localizacao where descricao = " . $descricao . "");
+            $query = $pdo->query("select *from localizacao where descricao like " . $descricao . "");
             return $query;
         } catch (PDOExcepetion $ex) {
             return 4;
+        }
+    }
+
+    public function removerLocalizacao($id) {
+        $pdo = $this->abrirBD();
+        if ($pdo == NULL) {
+            return false;
+        }
+        try {
+            $query = $pdo->query("DELETE FROM LOCALIZACAO WHERE ID = $id");
+            return true;
+        } catch (PDOException $ex) {
+            return false;
         }
     }
 
