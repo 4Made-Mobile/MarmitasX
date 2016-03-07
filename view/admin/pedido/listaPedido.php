@@ -97,53 +97,58 @@ $lista = $fachada->listarPedido($_GET['carne'], $_GET['localizacao']);
                                     </select>
 
                                     <!-- botão com o filtrar -->
-                                    <button type="submit">filtrar</button>
+                                    <button type="submit" class="btn btn-default">filtrar</button>
                                 </form>
-
-
-                                <?php
-// Emitindo E-Mail.
-                                if (!empty($_GET['ingrediente'])) {
-                                    ?>
-                                    <a target="_blank" href="imprimirPdf.php?ingrediente=<?php echo $_GET['ingrediente']; ?>"<button class="btn btn-theme"> Imprimir </button></a>
-                                <?php } else { ?>
-                                    <a target="_blank" href="imprimirPdf.php" <button class="btn btn-theme"> Imprimir </button></a>
-                                <?php } ?>
-                                <section id="unseen">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th> ID </th>
-                                                <th> Cliente </th>
-                                                <th> carne </th>
-                                                <th> Localização </th>
-                                                <th> Observação </th>
-                                                <th> Impressão </th>
-                                                <th class="numeric"> Detalhes </th>
-                                                <th class="danger"> Imprimir </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            foreach ($lista AS $linha) {
-                                                ?>
+                                <br>
+                                <form method="POST" action="imprimirSelecionados.php">
+                                    <?php
+                                    // Emitindo E-Mail.
+                                    if (!empty($_GET['ingrediente'])) {
+                                        ?>
+                                        <a target="_blank" href="imprimirPdf.php?ingrediente=<?php echo $_GET['ingrediente']; ?>"<button class="btn btn-theme"> Imprimir </button></a>
+                                    <?php } else { ?>
+                                        <a target="_blank" href="imprimirPdf.php" <button class="btn btn-theme"> Imprimir </button></a>
+                                    <?php } ?>
+                                    <button target="_blank" type="submit" class="btn btn-default">Imprimir Selecionados </button>
+                                    <section id="unseen">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <td><?php echo $linha->id; ?></td>
-                                                    <td><?php echo $linha->cliente; ?></td>
-                                                    <td><?php echo $linha->carne; ?></td>
-                                                    <td><?php echo $linha->localizacao; ?></td>
-                                                    <td><?php echo $linha->obs; ?></td>
-                                                    <td><?php echo ($linha->status == 2 ? "sim" : "não") ?></td>
-                                                    <td><a href="detalhePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
-                                                    <td><a href="removePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
-                                                    <td><a target="_blank" href="imprimirPdf.php?pedido=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Imprimir </button></a></td>
+                                                    <th> ID </th>
+                                                    <th> Cliente </th>
+                                                    <th> carne </th>
+                                                    <th> Localização </th>
+                                                    <th> Tamanho </th>
+                                                    <th> Observação </th>
+                                                    <th> foi impresso? </th>
+                                                    <th class="numeric"> Detalhes </th>
+                                                    <th> Remover </th>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
                                                 <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </section>
+                                                foreach ($lista AS $linha) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $linha->id; ?></td>
+                                                        <td><?php echo $linha->cliente; ?></td>
+                                                        <td><?php echo $linha->carne; ?></td>
+                                                        <td><?php echo $linha->localizacao; ?></td>
+                                                        <td><?php echo $linha->tamanho; ?></td>
+                                                        <td><?php echo $linha->obs; ?></td>
+                                                        <td><?php echo ($linha->status == 2 ? "sim" : "não") ?></td>
+                                                        <td><a href="detalhePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-theme"> Detalhes </button></a></td>
+                                                        <td><a href="removePedido.php?id=<?php echo $linha->id; ?>"<button class="btn btn-danger"> Remover </button></a></td>
+                                                        <td><input type="checkbox" name="<?php echo $linha->id; ?>" value="<?php echo $linha->id; ?>"/></td>
+
+                                                    </tr>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </form>
                             </div><!-- /content-panel -->
                         </div><!-- /col-lg-4 -->
                     </div><!-- /row -->

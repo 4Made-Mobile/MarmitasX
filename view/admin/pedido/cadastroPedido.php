@@ -27,6 +27,7 @@ if (!empty($_POST)) {
             'obs' => $_POST['obs'],
             'status' => 1,
             'localizacao' => '',
+            'tamanho' => 'P',
         );
 
         if ($array['localizacao_id'] == 1) {
@@ -268,7 +269,6 @@ if (!empty($_POST)) {
         <!--script for this page-->
         <script src="../../../assets/js/sparkline-chart.js"></script>
         <script src="../../../assets/js/zabuto_calendar.js"></script>
-
 
     </body>
 </html>

@@ -18,6 +18,11 @@ class ControllerPedido {
         }
     }
 
+    public function impressoPedido($id) {
+        $bd = new BDPedido();
+        $bd->impressoPedido($id);
+    }
+
     public function adicionarPedidoIngrediente($id_pedido, $id_ingrediente) {
         try {
 
@@ -48,7 +53,7 @@ class ControllerPedido {
         try {
             $obj = new BDPedido();
 
-// Aquela velha verificação estilosa
+            // Aquela velha verificação estilosa
             if ($carne == NULL && $localizacao == NULL) {
                 $lista = $obj->findAll();
             } else if ($carne != NULL && $localizacao == NULL) {
@@ -63,50 +68,14 @@ class ControllerPedido {
             echo "Erro: $ex";
         }
     }
-    
-    public function removerPedido($id){
-        try{
+
+    public function removerPedido($id) {
+        try {
             $pedido = new BDPedido();
             $res = $pedido->removerPedido($id);
             return $res;
         } catch (Exception $ex) {
             return false;
-        }
-    }
-
-    public function imprimirPedido($obj) {
-        try {
-            $mpdf = new mPDF('', 'A7');
-            $mpdf->allow_charset_conversion = true;
-// Gerando conteúdo do PDF
-            ob_start();
-            $html = ob_get_clean();
-            $html = utf8_encode($html);
-            $html .= "Id: " . $obj[0]->id . "<br>";
-            $html .= "Cliente: " . $obj[0]->cliente . "<br>";
-            $html .= "Localização: " . $obj[0]->localizacao . "<br>";
-            $html .= "<b>INGREDIENTES</b><br>";
-            foreach ($obj as $item) {
-                $html .= "<b>" . $item->tipo . "</b>: " . $item->ingrediente;
-                $html .= "<br>";
-            }
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<br>";
-            $html .= "<h3>Cliente: " . $obj[0]->cliente . "</h3><br>";
-
-// GERANDO PDF
-            $mpdf->WriteHTML($html);
-            $mpdf->Output('pedido' . '.pdf', 'I');
-            exit();
-        } catch (Exception $ex) {
-            echo "Erro: $ex";
         }
     }
 
@@ -129,6 +98,7 @@ class ControllerPedido {
             $html = ob_get_clean();
             $html = utf8_encode($html);
             foreach ($lista as $linha) {
+                $this->impressoPedido($linha->id);
                 $obj = $this->buscarPedidoID($linha->id);
                 $html .= "<b>Cliente: " . $obj[0]->cliente . "</b><br>";
                 $html .= "Telefone: " . $obj[0]->telefone . "<br>";
@@ -140,10 +110,10 @@ class ControllerPedido {
                     $html .= "<br>";
                 }
                 $html .= "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
-                $html .= "<b>Cliente: " . $obj[0]->cliente . "</b><br>";
+                $html .= $obj[0]->cliente . "<br>";
                 $html .= "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
             }
-// GERANDO PDF
+            // GERANDO PDF
             $mpdf->WriteHTML($html);
             $mpdf->Output('pedido' . '.pdf', 'I');
             exit();

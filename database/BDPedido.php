@@ -34,7 +34,8 @@ class BDPedido extends ConexaoBD {
                                                       :data_hora,
                                                       :obs,
                                                       :status,
-                                                      :localizacao
+                                                      :localizacao,
+                                                      :tamanho
                                   )');
             $stmt->execute($dados);
             $this->pdo = $this->fecharBD();
@@ -78,14 +79,14 @@ class BDPedido extends ConexaoBD {
         try {
             $query = $pdo->query("
                     select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
-                    t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status
+                    t1.localizacao AS localizacao, t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
                     from pedido t1
                     inner join pedido_ingrediente t2 ON (t1.id = t2.pedido_id)
                     inner join ingrediente t3 ON (t3.id = t2.ingrediente)
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t4.id = 3
+                    where t4.id = 3 AND t1.status != 0
                     ");
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOExcepetion $ex) {
@@ -101,14 +102,14 @@ class BDPedido extends ConexaoBD {
         try {
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
-                    t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status
+                    t1.localizacao AS localizacao, t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
                     from pedido t1
                     inner join pedido_ingrediente t2 ON (t1.id = t2.pedido_id)
                     inner join ingrediente t3 ON (t3.id = t2.ingrediente)
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t4.id = 3 AND t3.id = $carne
+                    where t4.id = 3 AND t3.id = $carne AND t1.status != 0
             ");
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOExcepetion $ex) {
@@ -125,14 +126,14 @@ class BDPedido extends ConexaoBD {
         try {
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
-                    t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status
+                    t1.localizacao AS localizacao,t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
                     from pedido t1
                     inner join pedido_ingrediente t2 ON (t1.id = t2.pedido_id)
                     inner join ingrediente t3 ON (t3.id = t2.ingrediente)
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t4.id = 3 AND t1.localizacao_id = " . $localizacao . "
+                    where t4.id = 3 AND t1.localizacao_id = " . $localizacao . " AND t1.status != 0
             ");
 
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -156,7 +157,7 @@ class BDPedido extends ConexaoBD {
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t3.id = " . $carne . " AND t1.localizacao_id = " . $localizacao . "
+                    where t3.id = " . $carne . " AND t1.localizacao_id = " . $localizacao . " AND t1.status != 0
             ");
 
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -181,7 +182,7 @@ class BDPedido extends ConexaoBD {
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t1.id = $id
+                    where t1.id = $id AND t1.status != 0
             ")->fetchAll(PDO::FETCH_OBJ);
             return $query;
         } catch (PDOException $ex) {
@@ -189,6 +190,7 @@ class BDPedido extends ConexaoBD {
         }
     }
 
+    // modifica o pedido para informar se ele foi impresso ou não
     public function impressoPedido($id) {
         $pdo = $this->abrirBD();
         if ($pdo == NULL) {

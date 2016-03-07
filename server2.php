@@ -65,7 +65,13 @@ function pedido($array) {
         'data_hora' => date('Y-m-d G:i:s'),
         'obs' => $array['obs'],
         'status' => 1,
+        'localizacao' => '',
+        'tamanho' => $array['tamanho']
     );
+
+    if (!empty($array['tamanho'])) {
+        $dados['tamanho'] = $array['tamanho'];
+    }
 
     if ($array['localizacao_id'] == 1) {
         $dados['localizacao'] = $array['localizacao'];
