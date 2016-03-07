@@ -61,7 +61,7 @@ class ControllerPedido {
             } else if ($carne == NULL && $localizacao != NULL) {
                 $lista = $obj->findByLocalizacao($localizacao);
             } else {
-                $lista = $obj->fiinByLocalizacaoCarne($carne, $localizacao);
+                $lista = $obj->findByLocalizacaoCarne($carne, $localizacao);
             }
             return $lista;
         } catch (Exception $ex) {

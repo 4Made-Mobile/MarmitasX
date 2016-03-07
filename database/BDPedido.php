@@ -77,6 +77,9 @@ class BDPedido extends ConexaoBD {
             exit;
         }
         try {
+
+            $data1 = date('Y-m-d G:i:s', strtotime('-14 hours'));
+
             $query = $pdo->query("
                     select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
                     t1.localizacao AS localizacao, t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
@@ -87,6 +90,7 @@ class BDPedido extends ConexaoBD {
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
                     where t4.id = 3 AND t1.status != 0
+                    AND t1.data_hora > '$data1'
                     ");
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOExcepetion $ex) {
@@ -100,6 +104,9 @@ class BDPedido extends ConexaoBD {
             exit;
         }
         try {
+
+            $data1 = date('Y-m-d G:i:s', strtotime('-14 hours'));
+
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
                     t1.localizacao AS localizacao, t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
@@ -110,6 +117,7 @@ class BDPedido extends ConexaoBD {
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
                     where t4.id = 3 AND t3.id = $carne AND t1.status != 0
+                    AND t1.data_hora >= '$data1'
             ");
             return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOExcepetion $ex) {
@@ -124,6 +132,9 @@ class BDPedido extends ConexaoBD {
         }
 
         try {
+
+            $data1 = date('Y-m-d G:i:s', strtotime('-14 hours'));
+
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
                     t1.localizacao AS localizacao,t1.tamanho AS tamanho, t1.obs AS obs, t1.status AS status
@@ -134,6 +145,7 @@ class BDPedido extends ConexaoBD {
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
                     where t4.id = 3 AND t1.localizacao_id = " . $localizacao . " AND t1.status != 0
+                    AND t1.data_hora >= '$data1'
             ");
 
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -148,6 +160,9 @@ class BDPedido extends ConexaoBD {
             exit;
         }
         try {
+
+            $data1 = date('Y-m-d G:i:s', strtotime('-14 hours'));
+
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS carne,
                     t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status
@@ -157,7 +172,8 @@ class BDPedido extends ConexaoBD {
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t3.id = " . $carne . " AND t1.localizacao_id = " . $localizacao . " AND t1.status != 0
+                    where t3.id = " . $carne . " AND t1.localizacao_id = " . $localizacao . " AND t1.status != 0 
+                    AND t1.data_hora >= '$data1'
             ");
 
             return $query->fetchAll(PDO::FETCH_OBJ);
@@ -172,6 +188,9 @@ class BDPedido extends ConexaoBD {
             exit;
         }
         try {
+
+            $data1 = date('Y-m-d G:i:s', strtotime('-14 hours'));
+
             $query = $pdo->query("
                 select t1.id AS id, t6.nome AS cliente, t3.descricao AS ingrediente,
                     t1.localizacao AS localizacao, t1.obs AS obs, t1.status AS status,
@@ -182,7 +201,7 @@ class BDPedido extends ConexaoBD {
                     inner join tipo t4 ON (t4.id = t3.tipo_id)
                     inner join localizacao t5 ON (t5.id = t1.localizacao_id)
                     inner join cliente t6 ON (t6.id = t1.cliente_id)
-                    where t1.id = $id AND t1.status != 0
+                    where t1.id = $id AND t1.status != 0 AND t1.data_hora >= '$data1'
             ")->fetchAll(PDO::FETCH_OBJ);
             return $query;
         } catch (PDOException $ex) {
