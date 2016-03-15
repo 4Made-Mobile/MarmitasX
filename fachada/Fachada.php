@@ -54,6 +54,16 @@ class Fachada {
         $layout->headerLayout();
     }
 
+    public function header() {
+        $layout = new ControllerLayout();
+        $layout->header();
+    }
+
+    public function rodape() {
+        $layout = new ControllerLayout();
+        $layout->rodape();
+    }
+
     public function sideLayout() {
         $layout = new ControllerLayout();
         $layout->sideLayout();
@@ -229,11 +239,13 @@ class Fachada {
         if (!empty($_SESSION['login'])) {
             if (!$_SESSION['login'] == true) {
                 header("Location: ../../..");
+                die();
             }
         } else {
             session_start();
             if (!$_SESSION['login']) {
                 header("Location: ../../../");
+                die();
             }
         }
     }
@@ -266,6 +278,7 @@ class Fachada {
     public function deslogar() {
         session_abort('login');
         header("Location: ../../../");
+        die();
     }
 
 }

@@ -21,7 +21,6 @@ if (empty($_POST)) {
     foreach ($lista as $key => $value) {
         $lista[$key] = (object) $value;
     }
-    
+
     $fachada->imprimirLista($lista);
 }
-?>

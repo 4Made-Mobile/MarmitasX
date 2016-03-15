@@ -13,5 +13,4 @@ if ($res) {
     echo "<script>window.alert('Não foi removido com sucesso')</script>";
     echo "<script>window.location = 'cadastroTipo.php'</script>";
 }
-?>
 

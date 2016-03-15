@@ -18,4 +18,3 @@ if (empty($_GET['pedido'])) {
 } else {
     $fachada->imprimirPedido($pedido);
 }
-?>

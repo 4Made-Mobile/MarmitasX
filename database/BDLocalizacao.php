@@ -80,5 +80,3 @@ class BDLocalizacao extends ConexaoBD {
     }
 
 }
-
-?>
