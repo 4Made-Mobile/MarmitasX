@@ -2,7 +2,7 @@
 // inicia a sessão
 session_start();
 
-include_once "../../../fachada/Fachada.php";
+require_once '../../../autoload.php';
 $fachada = new Fachada();
 $fachada->verificarLogin();
 if (!empty($_POST)) {
@@ -92,7 +92,7 @@ if (!empty($_POST)) {
                                         <div class="col-sm-10">
                                             <!-- não pense que a cabeça aguenta se você parar! -->
                                             <select name="cliente_id" class="form-control">
-                                                <option> seleciona uma opção </option>
+                                                <option value="0"> seleciona uma opção </option>
                                                 <?php
                                                 $clientes = $fachada->listarCliente()->fetchAll(PDO::FETCH_OBJ);
                                                 foreach ($clientes as $linha) {
@@ -113,7 +113,7 @@ if (!empty($_POST)) {
                                         <div class="col-sm-10">
                                             <!-- não pense que a cabeça aguenta se você parar! -->
                                             <select name="localizacao_id" class="form-control">
-                                                <option> seleciona uma opção </option>
+                                                <option value="1"> seleciona uma opção </option>
                                                 <?php
                                                 $locais = $fachada->listarLocalizacao();
                                                 foreach ($locais as $linha) {

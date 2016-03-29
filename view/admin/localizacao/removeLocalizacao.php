@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../fachada/Fachada.php';
+include_once "../../../autoload.php";
 $fachada = new Fachada();
 $fachada->verificarLogin();
 

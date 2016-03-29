@@ -1,6 +1,6 @@
 <?php
 
-include_once "../../../fachada/Fachada.php";
+require_once '../../../autoload.php';
 include_once '../../../assets/php/mpdf/mpdf.php';
 $fachada = new Fachada();
 $lista = $fachada->listarPedido();

@@ -1,7 +1,5 @@
 <?php
 
-include_once "../../../database/BDPedido.php";
-
 class ControllerPedido {
 
     public function __construct() {
@@ -103,10 +101,11 @@ class ControllerPedido {
                 $html .= "<b>Cliente: " . $obj[0]->cliente . "</b><br>";
                 $html .= "Telefone: " . $obj[0]->telefone . "<br>";
                 $html .= "Localização: " . $obj[0]->localizacao . "<br>";
+                $html .= "Tamanho: " . strtoupper($obj[0]->tamanho) . "<br>";
                 $html .= "Observação: " . $obj[0]->obs . "<br>";
                 $html .= "<b>INGREDIENTES</b><br>";
                 foreach ($obj as $item) {
-                    $html .= "<b>" . $item->tipo . "</b>: " . $item->ingrediente;
+                    $html .= "<b>" . $item->tipo . ": " . $item->ingrediente . "</b>";
                     $html .= "<br>";
                 }
                 $html .= "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";

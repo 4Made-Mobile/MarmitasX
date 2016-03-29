@@ -1,11 +1,5 @@
 <?php
 
-if (file_exists('../../../database/ConexaoBD.php')) {
-    include_once "../../../database/ConexaoBD.php";
-} else {
-    include_once "database/ConexaoBD.php";
-}
-
 class BDLocalizacao extends ConexaoBD {
 
     public function cadastrar($array) {
@@ -33,6 +27,7 @@ class BDLocalizacao extends ConexaoBD {
             return 3;
         }
         try {
+            print_r($id);
             $query = $pdo->query("select *from localizacao where id = " . $id . "")->fetch(PDO::FETCH_OBJ);
             return $query;
         } catch (PDOException $ex) {

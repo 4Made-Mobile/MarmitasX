@@ -1,7 +1,5 @@
 <?php
 
-include_once "../../../database/BDLocalizacao.php";
-
 class ControllerLocalizacao {
 
     public function cadastrar($array) {

@@ -1,7 +1,5 @@
 <?php
 
-include_once "../../../database/BDTipo.php";
-
 class ControllerTipo {
 
     public function __construct() {

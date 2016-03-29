@@ -1,7 +1,4 @@
 <?php
-
-include_once "../../../database/BDIngrediente.php";
-
 class ControllerIngrediente {
 
     public function __construct() {

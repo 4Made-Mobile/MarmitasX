@@ -1,14 +1,5 @@
 <?php
 
-include_once '../../../assets/php/mpdf/mpdf.php';
-include_once "../../../controller/ControllerLayout.php";
-include_once "../../../controller/ControllerTipo.php";
-include_once "../../../controller/ControllerIngrediente.php";
-include_once "../../../controller/ControllerCliente.php";
-include_once "../../../controller/ControllerPedido.php";
-include_once "../../../controller/ControllerLocalizacao.php";
-include_once "../../../controller/ControllerPreco.php";
-
 class Fachada {
 
     public function __construct() {

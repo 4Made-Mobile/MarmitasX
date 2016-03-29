@@ -1,5 +1,5 @@
 <?php
-include_once "../../../fachada/Fachada.php";
+include_once "../../../autoload.php";
 include_once '../../../assets/php/mpdf/mpdf.php';
 $fachada = new Fachada();
 $fachada->verificarLogin();

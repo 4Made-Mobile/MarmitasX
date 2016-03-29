@@ -1,11 +1,6 @@
 <?php
 
-require_once './database/BDCliente.php';
-require_once './database/BDIngrediente.php';
-require_once './database/BDLocalizacao.php';
-require_once './database/BDPedido.php';
-require_once './database/BDPreco.php';
-require_once './database/BDTipo.php';
+require_once './autoload.php';
 
 //FUNÇÕES DO WEBSERVICE!
 function cardapio() {

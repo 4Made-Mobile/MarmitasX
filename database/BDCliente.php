@@ -1,21 +1,4 @@
 <?php
-
-if (file_exists('../../../database/ConexaoBD.php')) {
-    include_once "../../../database/ConexaoBD.php";
-} else {
-    include_once "database/ConexaoBD.php";
-}
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ControllerCliente
- *
- * @author bergonalta
- */
 class BDCliente extends ConexaoBD {
 
     public function __construct() {

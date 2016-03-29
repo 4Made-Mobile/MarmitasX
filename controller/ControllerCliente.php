@@ -1,7 +1,5 @@
 <?php
 
-include_once "../../../database/BDCliente.php";
-
 class ControllerCliente {
 
     public function __construct() {
