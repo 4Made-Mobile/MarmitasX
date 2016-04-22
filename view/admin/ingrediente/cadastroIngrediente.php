@@ -4,7 +4,7 @@ $fachada = new Fachada();
 $fachada->verificarLogin();
 ?>
 <html lang="pt-br">
-
+    <?= $fachada->header(); ?>
     <body>
         <section id="container" >
             <?= $fachada->headerLayout(); ?>
@@ -18,22 +18,32 @@ $fachada->verificarLogin();
                                 <h2 class="mb" style="text-align: center"><i class="fa fa-user"></i> Ingrediente </h2>
                                 <form class="form-horizontal style-form" method="POST" action="" autocomplete="off">
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Descrição do ingrediente de Alimento</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">Descrição</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="descricao" class="form-control" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Data entrada do ingrediente</label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-2 control-label">Data de entrada</label>
+                                        <div class="col-sm-4">
                                             <input type="text" name="data1" class="form-control" placeholder="AAAA-MM-DD">
+                                        </div>
+
+                                        <label class="col-sm-2 control-label">Hora de entrada</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="hora1" value="00:00:00" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Data saída do ingrediente</label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-2 col-sm-2 control-label">Data de saída</label>
+                                        <div class="col-sm-4">
                                             <input type="text" name="data2" class="form-control" placeholder="AAAA-MM-DD">
+                                        </div>
+
+                                        <label class="col-sm-2 col-sm-2 control-label">Hora de saída</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="hora1" value="00:00:00" class="form-control">
                                         </div>
                                     </div>
 
@@ -72,8 +82,8 @@ $fachada->verificarLogin();
             $array = array(
                 'id' => null,
                 'descricao' => $_POST['descricao'],
-                'data1' => $_POST['data1'],
-                'data2' => $_POST['data2'],
+                'data1' => $_POST['data1'] + " " + $_POST['hora1'],
+                'data2' => $_POST['data2'] + " " + $_POST['hora1'],
                 'tipo_id' => $_POST['id_tipo'],
                 'status' => 1,
             );
@@ -88,8 +98,6 @@ $fachada->verificarLogin();
             unset($_POST);
         }
         ?>
-
-        <?= $fachada->header(); ?>
 
     </body>
 </html>

@@ -11,7 +11,7 @@ if (!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-    <?= $fachada->header(); ?>
+    <?php $fachada->header(); ?>
     <body>
         <section id="container" >
             <?php $fachada->headerLayout(); ?>

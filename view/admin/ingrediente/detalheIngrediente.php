@@ -10,7 +10,7 @@ if (!empty($_GET)) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-    <?= $fachada->rodape(); ?>
+    <?= $fachada->header(); ?>
     <body>
 
         <section id="container" >

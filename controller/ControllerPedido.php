@@ -1,5 +1,7 @@
 <?php
 
+include_once '../../../assets/php/mpdf/mpdf.php';
+
 class ControllerPedido {
 
     public function __construct() {

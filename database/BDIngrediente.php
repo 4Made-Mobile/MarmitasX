@@ -70,7 +70,7 @@ class BDIngrediente extends ConexaoBD {
         }
         try {
             $data = date("Y-m-d G:i:s");
-            $query = $pdo->query("SELECT id, descricao, tipo_id FROM  ingrediente WHERE data1 <= '$data' AND  data2 >=  '$data' AND status != 0");
+            $query = $pdo->query("SELECT id, descricao, tipo_id FROM  ingrediente WHERE data1 <= '$data' AND  data2 >=  '$data' AND status != 0 ORDER BY descricao");
             $pdo = $this->fecharBD();
             // verifica se existe algo para mostrar
             if (!$query) {
